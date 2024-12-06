@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import images from '../images.jsx'
+import images from '../images.json'
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import '../index.css';

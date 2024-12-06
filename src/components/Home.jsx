@@ -1,46 +1,44 @@
 import ImageItem from './Image.jsx'
 import React, { useState } from 'react'
-import images from '../images.jsx'
 import '../index.css';
 import '../InfoSerie.css';
 
-
-
 export default function Home(){
+    
 
-    const [imageList,setImageList] = useState(images);
+    const storedImages = JSON.parse(localStorage.getItem('images'));
+    const [imageList,setImageList] = useState(storedImages);
+
 
     function searchImage(e){
 
         if(e.target.value == ""){
-            setImageList(images)
+            setImageList(storedImages)
         }else{    
-            setImageList(images.filter((img)=> img.nom.toUpperCase().includes(e.target.value.toUpperCase())))        
+            setImageList(storedImages.filter((img)=> img.nom.toUpperCase().includes(e.target.value.toUpperCase())))        
         }
     }
 
 
- /*    function handleAddImage(e){
-        let imageFile = fs.readFileSync("../images.jsx")
-        let imageEditor = JSON.parse(imageFile);
+     function handleAddImage(e){
+        let key = imageList.length + 1;
 
         let imageData = {
-            nom:e.target.imagename.value,
-            key:8,
+            nom:e.target.imagetitle.value,
+            key:key,
             chemin:e.target.imageurl.value,
             text:e.target.imagedesc.value,
             date:e.target.imagedate.value,
         }
-        imageEditor.push(imageData)
-        let newJSON = JSON.stringify(imageEditor)
-        //fs.writeFile("../images.jsx", newJSON, err => {
-          //  if(err) throw err;
-        //} )
+        console.log(imageData, imageList)
+        const updatedImageList = imageList.concat(imageData);
+        setImageList(updatedImageList);
+        localStorage.setItem('images', JSON.stringify(updatedImageList));
 
-        //setImageList(imageList.concat(imageData))
         console.log(e.target.imagename)
     
-        //setImageList() */
+        //setImageList() 
+    }
     
 
     return <>
@@ -53,14 +51,23 @@ export default function Home(){
             <ImageItem key={image.key} image = {image}></ImageItem>
         ))
         }
-  {/*       <form onSubmit={handleAddImage}>
-            <input type='text' id='imagename'/>
-            <input type='text' id='imageurl'/>
-            <input type='text' id='imagedesc'/>
-            <input type='text' id='imagedate'/>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <form onSubmit={handleAddImage}>
+            <label htmlFor='imagename'>Image Name:</label>
+            <input type='text' id='imagetitle' name='imagetitle' required/>
 
-            <button type='submit'></button>
-        </form> */}
+            <label htmlFor='imageurl'>Image URL:</label>
+            <input type='text' id='imageurl' name='imageurl' required/>
+
+            <label htmlFor='imagedesc'>Image Description:</label>
+            <input type='text' id='imagedesc' name='imagedesc' required/>
+
+            <label htmlFor='imagedate'>Image Date:</label>
+            <input type='date' id='imagedate' name='imagedate' required/>
+
+            <button type='submit'>Add Image</button>
+        </form>
+        </div>
         </div>
 
 

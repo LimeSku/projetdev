@@ -1,6 +1,6 @@
 import ImageItem from './Image.jsx'
 import React, { useState } from 'react'
-import images from '../images.jsx'
+// import images from '../images.json'
 import '../index.css';
 import '../InfoSerie.css';
 
@@ -11,7 +11,7 @@ import '../InfoSerie.css';
 
 export default function AddImage(){
 
-    const [imageList,setImageList] = useState(images);
+    const [imageList,setImageList] = useState();
 
     
     return <>
